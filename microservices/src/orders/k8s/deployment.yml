@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders
+  labels:
+    app: orders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      containers:
+      - name: orders
+        image: europe-west1-docker.pkg.dev/dacl-gke-shop/dacl-store/frontend:v0.2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
