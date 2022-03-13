@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: europe-west1-docker.pkg.dev/dacl-gke-shop/dacl-store/frontend:v0.3
+        image: europe-west1-docker.pkg.dev/dacl-yelb/shop/frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

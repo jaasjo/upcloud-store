@@ -1,0 +1,139 @@
+steps:
+
+# Build the react app
+
+- name: 'node:16'
+  entrypoint: 'npm'
+  args: 
+    - '--prefix'
+    - 'react-app'
+    - 'install'
+
+- name: 'node:16'
+  entrypoint: 'npm'
+  args: 
+    - '--prefix'
+    - 'react-app'
+    - 'run'
+    - 'build'
+  id: node
+
+# Build the frontend container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: 
+    - 'build' 
+    - '--tag=europe-west1-docker.pkg.dev/dacl-yelb/shop/frontend:latest'
+    - 'microservices/src/frontend/'
+  id: build_frontend
+  waitFor: 
+    - node
+
+# Build the orders container image
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'build'
+    - '--tag=europe-west1-docker.pkg.dev/dacl-yelb/shop/orders:latest'
+    - 'microservices/src/orders/'
+  id: build_orders
+  waitFor: 
+    - node
+
+# Build the products container image
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'build'
+    - '--tag=europe-west1-docker.pkg.dev/dacl-yelb/shop/products:latest'
+    - 'microservices/src/products/'
+  id: build_products
+  waitFor: 
+    - node
+
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-west1-docker.pkg.dev/dacl-yelb/shop/frontend']
+  id: push_frontend
+  waitFor: 
+    - build_frontend
+
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-west1-docker.pkg.dev/dacl-yelb/shop/orders']
+  id: push_orders
+  waitFor: 
+    - build_orders
+
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-west1-docker.pkg.dev/dacl-yelb/shop/products']
+  id: push_products
+  waitFor: 
+   - build_products
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - apply
+  - -f
+  - microservices/src/frontend/k8s/deployment.yml
+  - --namespace
+  - shop
+  env:
+  - CLOUDSDK_COMPUTE_ZONE=europe-west1
+  - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - apply
+  - -f
+  - microservices/src/products/k8s/deployment.yml
+  - --namespace
+  - shop
+  env:
+  - CLOUDSDK_COMPUTE_ZONE=europe-west1
+  - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - apply
+  - -f
+  - microservices/src/orders/k8s/deployment.yml
+  - --namespace
+  - shop
+  env:
+  - CLOUDSDK_COMPUTE_ZONE=europe-west1
+  - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
+
+
+
+## Deploy
+#- name: "gcr.io/cloud-builders/gke-deploy"
+#  args:
+#  - run
+#  - --filename=microservices/src/frontend/k8s/deployment.yml
+#  - --image=europe-west1-docker.pkg.dev/dacl-gke-shop/dacl-store/frontend:latest
+#  - --location=europe-west1
+#  - --cluster=autopilot-cluster-1
+#  - --namespace=shop
+#  waitFor: 
+#  - push_frontend
+#
+#- name: "gcr.io/cloud-builders/gke-deploy"
+#  args:
+#  - run
+#  - --filename=microservices/src/orders/k8s/deployment.yml
+#  - --image=europe-west1-docker.pkg.dev/dacl-gke-shop/dacl-store/frontend:latest
+#  - --location=europe-west1
+#  - --cluster=autopilot-cluster-1
+#  - --namespace=shop
+#  waitFor:
+#  - push_orders
+#
+#- name: "gcr.io/cloud-builders/gke-deploy"
+#  args:
+#  - run
+#  - --filename=microservices/src/products/k8s/deployment.yml
+#  - --image=europe-west1-docker.pkg.dev/dacl-gke-shop/dacl-store/frontend:latest
+#  - --location=europe-west1
+#  - --cluster=autopilot-cluster-1
+#  - --namespace=shop
+#  waitFor:
+#  - push_products

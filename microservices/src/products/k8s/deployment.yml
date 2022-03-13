@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: products
-        image: europe-west1-docker.pkg.dev/dacl-gke-shop/dacl-store/products:v0.1
+        image: europe-west1-docker.pkg.dev/dacl-yelb/shop/products:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
