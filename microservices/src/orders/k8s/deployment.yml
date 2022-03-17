@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: orders
-        image: europe-west1-docker.pkg.dev/dacl-yelb/shop/orders:latest
+        image: 172.16.228.29/demoapp/orders:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
