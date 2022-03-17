@@ -1,1 +1,1 @@
-Small GKE demo
+Small Tanzu demo
