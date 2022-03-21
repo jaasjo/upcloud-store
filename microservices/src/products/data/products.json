@@ -79,6 +79,14 @@
             "picture": "static/img/products/air-plant.jpg",
             "cost": 12.30,
             "categories": ["gardening"]
+        },
+        {
+            "id": "9SIQT8TOJ2",
+            "name": "Tanzu Demo Plant version 2",
+            "description": "Have you ever wondered whether air plants need water? Buy one and figure out.",
+            "picture": "static/img/products/air-plant.jpg",
+            "cost": 12.30,
+            "categories": ["gardening"]
         }
 
 
