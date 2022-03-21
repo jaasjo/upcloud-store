@@ -78,7 +78,7 @@ export default function ClippedDrawer() {
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" noWrap>
-              Fancy Store
+              Tanzu Store
             </Typography>
           </Toolbar>
         </AppBar>

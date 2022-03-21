@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography variant="h5">Welcome to the Fancy Store!</Typography>
+        <Typography variant="h5">Welcome to the Tanzu Store!</Typography>
         <br />
         <Typography variant="body1">
           Take a look at our wide variety of products.
