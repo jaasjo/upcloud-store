@@ -66,15 +66,7 @@
         },
         {
             "id": "9SIQT8TOJO",
-            "name": "MS -  Air Tanzu Plant",
-            "description": "Have you ever wondered whether air plants need water? Buy one and figure out.",
-            "picture": "static/img/products/air-plant.jpg",
-            "cost": 12.30,
-            "categories": ["gardening"]
-        },
-        {
-            "id": "9SIQT8TO12",
-            "name": "MS -  Air  Plant",
+            "name": "MS -  Air Plant",
             "description": "Have you ever wondered whether air plants need water? Buy one and figure out.",
             "picture": "static/img/products/air-plant.jpg",
             "cost": 12.30,
