@@ -1,3 +1,1 @@
-Small Tanzu demo 
-
-a
+Small Tanzu demo
