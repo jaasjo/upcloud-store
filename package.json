@@ -1,0 +1,15 @@
+{
+  "name": "tanzustore",
+  "version": "1.0.0",
+  "description": "Small Tanzu demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://docker.vmlab.fi/root/tanzustore.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
