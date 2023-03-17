@@ -1,4 +1,2 @@
-Small Tanzu demo
+UpCloud Store Demo
 
-
-a
